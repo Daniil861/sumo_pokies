@@ -574,7 +574,7 @@
                         clearInterval(casinoAutoSpin);
                         document.querySelector(".actions-slot__button-auto").classList.remove("_hold");
                     }
-                }), 4e3);
+                }), 4500);
             }
         }));
     }

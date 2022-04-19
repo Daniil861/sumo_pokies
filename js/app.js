@@ -412,8 +412,8 @@
         document.querySelector(".wrapper").classList.add("_visible");
     }
     if (document.querySelector(".slot") || document.querySelector(".fortune")) {
-        document.querySelector(".block-bet__coins").textContent = 0;
-        sessionStorage.setItem("current-bet", 0);
+        document.querySelector(".block-bet__coins").textContent = 50;
+        sessionStorage.setItem("current-bet", 50);
     }
     if (sessionStorage.getItem("money")) {
         if (document.querySelector(".check")) document.querySelector(".check").textContent = sessionStorage.getItem("money");
@@ -440,6 +440,9 @@
             document.querySelector(block).classList.remove("_no-money");
         }), 1e3);
     }
+    function current_bet() {
+        return +sessionStorage.getItem("current-bet");
+    }
     function get_random(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
     }
@@ -463,8 +466,8 @@
     if (document.querySelector(".item-money__icon")) setInterval((() => {
         get_random_animate();
     }), 12e3);
-    var minTime = 500;
-    var maxTime = 2e3;
+    var minTime = 1e3;
+    var maxTime = 2500;
     var casino1 = document.querySelector("#slot1");
     var casino2 = document.querySelector("#slot2");
     var casino3 = document.querySelector("#slot3");
@@ -477,7 +480,10 @@
             delay: 800,
             onComplete: function(active) {
                 a = this.active;
-                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) add_money(5e3, ".check", 1e3, 2e3);
+                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) {
+                    let bet = current_bet();
+                    add_money(100 * bet, ".check", 1e3, 2e3);
+                }
             }
         });
         var mcasino2 = new SlotMachine(casino2, {
@@ -485,7 +491,10 @@
             delay: 800,
             onComplete: function(active) {
                 b = this.active;
-                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) add_money(5e3, ".check", 1e3, 2e3);
+                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) {
+                    let bet = current_bet();
+                    add_money(100 * bet, ".check", 1e3, 2e3);
+                }
             }
         });
         var mcasino3 = new SlotMachine(casino3, {
@@ -493,7 +502,10 @@
             delay: 800,
             onComplete: function(active) {
                 c = this.active;
-                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) add_money(5e3, ".check", 1e3, 2e3);
+                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) {
+                    let bet = current_bet();
+                    add_money(100 * bet, ".check", 1e3, 2e3);
+                }
             }
         });
         var mcasino4 = new SlotMachine(casino4, {
@@ -501,7 +513,10 @@
             delay: 800,
             onComplete: function(active) {
                 d = this.active;
-                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) add_money(5e3, ".check", 1e3, 2e3);
+                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) {
+                    let bet = current_bet();
+                    add_money(100 * bet, ".check", 1e3, 2e3);
+                }
             }
         });
         var mcasino5 = new SlotMachine(casino5, {
@@ -509,15 +524,18 @@
             delay: 800,
             onComplete: function(active) {
                 e = this.active;
-                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) add_money(5e3, ".check", 1e3, 2e3);
+                if (666 != a && 666 != b && 666 != c && 666 != d && 666 != e) if (a == b && b == c && c == d && d == e) {
+                    let bet = current_bet();
+                    add_money(100 * bet, ".check", 1e3, 2e3);
+                }
             }
         });
         function gameSlot() {
-            mcasino1.shuffle(9999);
-            mcasino2.shuffle(9999);
-            mcasino3.shuffle(9999);
-            mcasino4.shuffle(9999);
-            mcasino5.shuffle(9999);
+            mcasino1.shuffle(10);
+            mcasino2.shuffle(10);
+            mcasino3.shuffle(10);
+            mcasino4.shuffle(10);
+            mcasino5.shuffle(10);
             setTimeout((() => mcasino1.stop()), get_random(minTime, maxTime));
             setTimeout((() => mcasino2.stop()), get_random(minTime, maxTime));
             setTimeout((() => mcasino3.stop()), get_random(minTime, maxTime));
@@ -535,11 +553,11 @@
                 delete_money(+sessionStorage.getItem("current-bet"), ".check");
                 clearInterval(casinoAutoSpin);
                 gameSlot();
-            }
-            document.querySelector(".actions-slot__button-play").classList.add("_hold");
-            setTimeout((() => {
-                document.querySelector(".actions-slot__button-play").classList.remove("_hold");
-            }), 3500);
+                document.querySelector(".actions-slot__button-play").classList.add("_hold");
+                setTimeout((() => {
+                    document.querySelector(".actions-slot__button-play").classList.remove("_hold");
+                }), 3500);
+            } else no_money(".check");
         }));
         if (document.querySelector(".actions-slot__button-auto")) document.querySelector(".actions-slot__button-auto").addEventListener("click", (() => {
             if (casino1 && casino2 && casino3 && casino4 && casino5 && +sessionStorage.getItem("money") > +sessionStorage.getItem("current-bet")) {
@@ -565,15 +583,14 @@
         item_left: 0,
         item_top: 0,
         current_number_dot: 0,
+        current_bonus: 0,
         arr: [ 2, 3, 4, 5, 6, 7 ],
         current_arr: []
     };
     if (document.querySelector(".fortune")) sessionStorage.setItem("current-level", 1);
     function get_random_cube() {
         let number = get_random(2, 7);
-        console.log(`Случайный номер - ${number}`);
         config.current_number_dot = number + 1;
-        console.log(`config.current_number_dot - ${config.current_number_dot}`);
         let image = document.createElement("img");
         image.setAttribute("src", `img/game/cub-${number}.svg`);
         document.querySelector(".fortune__cube img").remove();
@@ -589,13 +606,13 @@
             targetElement.oncontextmenu = function() {
                 return false;
             };
-            config.program = get_random(1, 8);
-            if (!sessionStorage.getItem("current-level")) sessionStorage.setItem("current-level", 1);
+            if (+sessionStorage.getItem("money") > +sessionStorage.getItem("current-bet")) config.program = get_random(1, 8);
         }
     }
     function stop_count_cube(e) {
         let targetElement = e.target;
-        if (targetElement.closest(".fortune__cube img")) {
+        if (targetElement.closest(".fortune__cube img")) if (+sessionStorage.getItem("money") > +sessionStorage.getItem("current-bet")) {
+            delete_money(+sessionStorage.getItem("current-bet"), ".check");
             rotate_cub();
             create_items_huble();
             setTimeout((() => {
@@ -608,7 +625,7 @@
                     }), 2e3);
                 }), 500);
             }), 500);
-        }
+        } else no_money(".check");
     }
     function rotate_cub() {
         let block = document.querySelector(".fortune__cube");
@@ -681,6 +698,51 @@
         document.querySelector(`.fortune__hubble_${config.current_arr[num]}`).append(coins_item);
         document.querySelector(`.fortune__hubble_${config.current_arr[num]}`).dataset.value = item_win;
     }
+    function create_result_bonus_coins(num) {
+        let arr = [ 0, 0, 1, 2, 3, 5 ];
+        let random_number = get_random(0, 6);
+        let random = arr[random_number];
+        let coins_item = document.createElement("div");
+        coins_item.classList.add("fortune__bonus");
+        let count = document.createElement("div");
+        count.classList.add("fortune__count");
+        let item_win = +sessionStorage.getItem("current-bet") * random;
+        count.textContent = `+${item_win}`;
+        let image = document.createElement("img");
+        image.setAttribute("src", "img/icons/coin.png");
+        image.setAttribute("alt", "Icon");
+        coins_item.append(count, image);
+        document.querySelector(`.bonus__open-image_${num}`).append(coins_item);
+        document.querySelector(`.bonus__image_${num}`).dataset.value = item_win;
+    }
+    function create_result_bonus(num) {
+        let box_bonus = document.createElement("div");
+        box_bonus.classList.add("fortune__box-bonus");
+        let box_close = document.createElement("div");
+        box_close.classList.add("fortune__box-close");
+        let box_close_image = document.createElement("img");
+        box_close_image.setAttribute("src", "img/game/box.png");
+        box_close.append(box_close_image);
+        let box_open = document.createElement("div");
+        box_open.classList.add("fortune__box-open");
+        let box_open_image = document.createElement("img");
+        box_open_image.setAttribute("src", "img/game/open-box.png");
+        let bonus = document.createElement("div");
+        bonus.classList.add("fortune__bonus");
+        let count = document.createElement("div");
+        count.classList.add("fortune__count");
+        let item_win = 10 * +sessionStorage.getItem("current-bet");
+        count.textContent = `+${item_win}`;
+        let image = document.createElement("img");
+        image.setAttribute("src", "img/icons/coin.png");
+        image.setAttribute("alt", "Icon");
+        bonus.append(count, image);
+        box_open.append(box_open_image, bonus);
+        box_bonus.append(box_close, box_open);
+        document.querySelector(`.fortune__hubble_${config.current_arr[num]}`).append(box_bonus);
+        document.querySelector(`.fortune__hubble_${config.current_arr[num]}`).dataset.value = item_win;
+        document.querySelector(`.fortune__hubble_${config.current_arr[num]}`).dataset.box = 1;
+    }
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
@@ -690,28 +752,64 @@
     }
     function create_items_huble() {
         config.current_arr = shuffle(config.arr);
-        create_result_bomb(0);
-        create_result_coins(1);
-        create_result_coins(2);
-        create_result_coins(3);
-        create_result_coins(4);
-        create_result_coins(5);
+        if (1 == +sessionStorage.getItem("current-level")) {
+            create_result_bomb(0);
+            create_result_coins(1);
+            create_result_coins(2);
+            create_result_coins(3);
+            create_result_coins(4);
+            create_result_coins(5);
+        } else if (2 == +sessionStorage.getItem("current-level")) {
+            create_result_bomb(0);
+            create_result_bomb(1);
+            create_result_coins(2);
+            create_result_coins(3);
+            create_result_coins(4);
+            create_result_coins(5);
+            create_result_bonus_coins(1);
+            create_result_bonus_coins(2);
+            create_result_bonus_coins(3);
+        } else if (3 == +sessionStorage.getItem("current-level")) {
+            create_result_bomb(0);
+            create_result_bomb(1);
+            create_result_bonus(2);
+            create_result_coins(3);
+            create_result_coins(4);
+            create_result_coins(5);
+        }
     }
     function check_game_over() {
         let current_dragon_position = config.current_number_dot;
         document.querySelector(`.fortune__hubble_${current_dragon_position}`).classList.add("_active");
         if ("bomb" == document.querySelector(`.fortune__hubble_${current_dragon_position}`).dataset.value) document.querySelector(".loose").classList.add("_active"); else if (+document.querySelector(`.fortune__hubble_${current_dragon_position}`).dataset.value > 0) {
-            add_money(get_count_win(), ".check", 1e3, 2e3);
-            document.querySelector(".fortune__btn-next-level").classList.add("_active");
-            check_level();
+            if (1 == +sessionStorage.getItem("current-level") || 2 == +sessionStorage.getItem("current-level")) {
+                add_money(get_count_win(), ".check", 1e3, 2e3);
+                document.querySelector(".fortune__btn-next-level").classList.add("_active");
+            }
+            if (2 == +sessionStorage.getItem("current-level")) setTimeout((() => {
+                document.querySelector(".bonus").classList.add("_active");
+            }), 1e3);
+            if (3 == +sessionStorage.getItem("current-level") && !document.querySelector(`.fortune__hubble_${current_dragon_position}`).dataset.box) write_text_play_in_btn();
         } else if (0 == +document.querySelector(`.fortune__hubble_${current_dragon_position}`).dataset.value) {
-            document.querySelector(".fortune__btn-next-level").classList.add("_active");
-            check_level();
+            if (1 == +sessionStorage.getItem("current-level") || 2 == +sessionStorage.getItem("current-level")) document.querySelector(".fortune__btn-next-level").classList.add("_active");
+            if (2 == +sessionStorage.getItem("current-level")) setTimeout((() => {
+                document.querySelector(".bonus").classList.add("_active");
+            }), 1e3);
+            write_text_play_in_btn();
         }
+    }
+    function write_text_play_in_btn() {
+        if (3 == +sessionStorage.getItem("current-level")) {
+            document.querySelector(".fortune__btn-next-level p").textContent = "play again";
+            document.querySelector(".fortune__btn-next-level").classList.add("_active");
+        } else document.querySelector(".fortune__btn-next-level").classList.add("_active");
     }
     function check_level() {
         let level = +sessionStorage.getItem("current-level");
-        if (1 == level) sessionStorage.setItem("current-level", 2); else if (2 == level) sessionStorage.setItem("current-level", 3);
+        if (1 == level) sessionStorage.setItem("current-level", 2); else if (2 == level) {
+            if (document.querySelector(".bonus") && document.querySelector(".bonus").classList.contains("_active")) document.querySelector(".bonus").classList.remove("_active");
+            sessionStorage.setItem("current-level", 3);
+        }
     }
     function get_count_win() {
         return +document.querySelector(`.fortune__hubble_${config.current_number_dot}`).dataset.value;
@@ -722,17 +820,18 @@
         document.querySelectorAll(".fortune__hubble").forEach((el => {
             if (el.classList.contains("_active")) el.classList.remove("_active");
         }));
+        if (document.querySelector(".fortune__box-bonus")) document.querySelector(".fortune__box-bonus").remove();
     }
     function reset_current_actions() {
-        get_coord_block(document.querySelector(".fortune__hubble_1"));
         document.querySelector(".fortune__btn-next-level").classList.remove("_active");
-        move_dragon();
         remove_items();
         get_start_position_cube();
         remove_hold_cube();
         draw_bg_current_level();
         remove_dot_positions();
         add_dot_positions();
+        get_coord_block(document.querySelector(".fortune__hubble_1"));
+        move_dragon();
     }
     function draw_bg_current_level() {
         delete_fortune_bg();
@@ -746,6 +845,11 @@
     }
     function remove_dot_positions() {
         if (2 == +sessionStorage.getItem("current-level")) document.querySelector(".fortune__field").classList.remove("_level-1"); else if (3 == +sessionStorage.getItem("current-level")) document.querySelector(".fortune__field").classList.remove("_level-2");
+    }
+    function remove_dataset() {
+        document.querySelectorAll(`.fortune__hubble`).forEach((el => {
+            if (el.dataset.box) el.removeAttribute("data-box");
+        }));
     }
     document.addEventListener("click", (e => {
         let targetElement = e.target;
@@ -769,10 +873,32 @@
                 document.querySelector(".block-bet__coins").textContent = sessionStorage.getItem("current-bet");
             } else no_money(".check");
         }
-        if (targetElement.closest(".fortune__btn-next-level")) reset_current_actions();
+        if (targetElement.closest(".fortune__btn-next-level")) {
+            check_level();
+            reset_current_actions();
+            if (3 == +sessionStorage.getItem("current-level")) remove_dataset();
+        }
         if (targetElement.closest(".loose__btn-restart")) {
             reset_current_actions();
             document.querySelector(".loose").classList.remove("_active");
+            if (3 == +sessionStorage.getItem("current-level")) remove_dataset();
+        }
+        if (targetElement.closest(".bonus__image")) setTimeout((() => {
+            targetElement.closest(".bonus__image").classList.add("_active");
+            config.current_bonus = +targetElement.closest(".bonus__image").dataset.value;
+            add_money(config.current_bonus, ".check", 1e3, 2e3);
+            document.querySelector(".bonus").classList.add("_hold");
+            setTimeout((() => {
+                document.querySelector(".bonus").classList.add("_hide");
+            }), 1500);
+            setTimeout((() => {
+                document.querySelector(".bonus").remove();
+            }), 3e3);
+        }), 200);
+        if (targetElement.closest(".fortune__box-bonus")) {
+            targetElement.closest(".fortune__box-bonus").classList.add("_active");
+            add_money(get_count_win(), ".check", 1e3, 2e3);
+            write_text_play_in_btn();
         }
     }));
     window["FLS"] = true;

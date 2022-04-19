@@ -418,7 +418,7 @@
     if (sessionStorage.getItem("money")) {
         if (document.querySelector(".check")) document.querySelector(".check").textContent = sessionStorage.getItem("money");
     } else {
-        sessionStorage.setItem("money", 1e3);
+        sessionStorage.setItem("money", 5e3);
         if (document.querySelector(".check")) document.querySelector(".check").textContent = sessionStorage.getItem("money");
     }
     const preloader = document.querySelector(".preloader");
@@ -584,6 +584,7 @@
         item_top: 0,
         current_number_dot: 0,
         current_bonus: 0,
+        current_position_dot: 1,
         arr: [ 2, 3, 4, 5, 6, 7 ],
         current_arr: []
     };
@@ -619,10 +620,7 @@
                 get_random_cube();
                 add_hold_cube();
                 setTimeout((() => {
-                    move_dragon();
-                    setTimeout((() => {
-                        check_game_over();
-                    }), 2e3);
+                    check_and_jump_dragon();
                 }), 500);
             }), 500);
         } else no_money(".check");
@@ -670,6 +668,87 @@
     function move_dragon() {
         document.querySelector(".fortune__dragon").style.top = `${config.item_top - 149}px`;
         document.querySelector(".fortune__dragon").style.left = `${config.item_left - 10}px`;
+    }
+    function check_and_jump_dragon() {
+        jump_dragon(2);
+        setTimeout((() => {
+            config.current_position_dot = 2;
+            if (config.current_number_dot == config.current_position_dot) {
+                move_dragon();
+                setTimeout((() => {
+                    check_game_over();
+                }), 1500);
+                return false;
+            } else {
+                jump_dragon(3);
+                setTimeout((() => {
+                    config.current_position_dot = 3;
+                    if (config.current_number_dot == config.current_position_dot) {
+                        move_dragon();
+                        setTimeout((() => {
+                            check_game_over();
+                        }), 1500);
+                        return false;
+                    } else {
+                        jump_dragon(4);
+                        config.current_position_dot = 4;
+                        setTimeout((() => {
+                            if (config.current_number_dot == config.current_position_dot) {
+                                move_dragon();
+                                setTimeout((() => {
+                                    check_game_over();
+                                }), 1500);
+                                return false;
+                            } else {
+                                jump_dragon(5);
+                                config.current_position_dot = 5;
+                                setTimeout((() => {
+                                    if (config.current_number_dot == config.current_position_dot) {
+                                        move_dragon();
+                                        setTimeout((() => {
+                                            check_game_over();
+                                        }), 1500);
+                                        return false;
+                                    } else {
+                                        jump_dragon(6);
+                                        config.current_position_dot = 6;
+                                        setTimeout((() => {
+                                            if (config.current_number_dot == config.current_position_dot) {
+                                                move_dragon();
+                                                setTimeout((() => {
+                                                    check_game_over();
+                                                }), 1500);
+                                                return false;
+                                            } else {
+                                                jump_dragon(7);
+                                                setTimeout((() => {
+                                                    move_dragon();
+                                                    setTimeout((() => {
+                                                        check_game_over();
+                                                    }), 1500);
+                                                    return false;
+                                                }), 1500);
+                                            }
+                                        }), 1500);
+                                    }
+                                }), 1500);
+                            }
+                        }), 1500);
+                    }
+                }), 1500);
+            }
+        }), 1500);
+    }
+    function jump_dragon(num_dot) {
+        get_coord_block(document.querySelector(`.fortune__hubble_${num_dot}`));
+        setTimeout((() => {
+            document.querySelector(".fortune__dragon").style.top = `${config.item_top - 180}px`;
+            document.querySelector(".fortune__dragon").style.left = `${config.item_left - 10}px`;
+            setTimeout((() => {
+                document.querySelector(".fortune__dragon").style.top = `${config.item_top - 120}px`;
+                document.querySelector(".fortune__dragon").style.left = `${config.item_left - 10}px`;
+            }), 500);
+        }), 500);
     }
     function create_result_bomb(num) {
         let bomb_item = document.createElement("div");

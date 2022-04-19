@@ -738,7 +738,7 @@ body._hold {
   top: 32vh;
   width: 7.3125rem;
   height: 7.4375rem;
-  transition: all 1.2s ease 0s;
+  transition: all 1.2s ease-out 0s;
 }
 .fortune__bomb {
   position: absolute;
@@ -815,7 +815,6 @@ body._hold {
   visibility: hidden;
   width: 100%;
   min-height: 100%;
-  z-index: 9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -825,6 +824,7 @@ body._hold {
   top: 0;
   opacity: 1;
   visibility: visible;
+  z-index: 11;
 }
 .loose__body {
   background: url("../img/slot/bg-slot-item.png") center/contain no-repeat;
@@ -1041,7 +1041,7 @@ body._hold {
 }
 @keyframes move_bonus_up {
   100% {
-    top: -1.875rem;
+    top: -0.3125rem;
   }
 }
 @keyframes no-money {

@@ -228,6 +228,7 @@ body._hold {
 }
 
 .slotMachineBlurFast {
+  transition: all 0.1s ease 0.3s;
   -webkit-filter: blur(5px);
   filter: blur(5px);
 }
@@ -506,6 +507,9 @@ body._hold {
   margin-bottom: 0.5rem;
   width: 6.5rem;
 }
+.actions-slot__button-play {
+  transition: all 0.3s ease 0s;
+}
 .actions-slot__button-play._hold {
   opacity: 0.5;
   pointer-events: none;
@@ -577,12 +581,15 @@ body._hold {
   height: 100%;
 }
 .fortune_bg-1 {
+  transition: all 1s ease 0s;
   background: url("../img/game/bg-game-1.jpg") center/cover no-repeat;
 }
 .fortune_bg-2 {
+  transition: all 1s ease 0s;
   background: url("../img/game/bg-game-2.jpg") center/cover no-repeat;
 }
 .fortune_bg-3 {
+  transition: all 1s ease 0s;
   background: url("../img/game/bg-game-3.jpg") center/cover no-repeat;
 }
 .fortune__lobby {
@@ -720,6 +727,11 @@ body._hold {
   visibility: visible;
   transition: all 0.8s ease 0s;
 }
+.fortune__hubble._active .fortune__box-bonus {
+  transition: all 0.3s ease 0s;
+  transform: scale(1);
+  z-index: 11;
+}
 .fortune__dragon {
   position: absolute;
   left: 3vw;
@@ -760,8 +772,38 @@ body._hold {
   visibility: hidden;
 }
 .fortune__btn-next-level._active {
+  transition: all 0.5s ease 0.7s;
   opacity: 1;
   visibility: visible;
+  z-index: 1;
+}
+.fortune__box-bonus {
+  position: absolute;
+  top: 0rem;
+  left: -2.1875rem;
+  transform: scale(0);
+}
+.fortune__box-bonus._active .fortune__box-close {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease 0s;
+}
+.fortune__box-bonus._active .fortune__box-open {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s ease 0s;
+}
+.fortune__box-bonus._active .fortune__bonus {
+  opacity: 1;
+  visibility: visible;
+  animation: move_bonus_up 0.5s ease 0.5s forwards;
+}
+.fortune__box-open {
+  position: absolute;
+  top: 0.625rem;
+  left: -0.25rem;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .loose {
@@ -814,6 +856,87 @@ body._hold {
 }
 .loose__btn-lobby {
   margin-bottom: 0.625rem;
+}
+
+.bonus {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  visibility: hidden;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.7s ease 0s;
+}
+.bonus._active {
+  top: 0;
+  opacity: 1;
+  visibility: visible;
+  z-index: 9;
+}
+.bonus._hold {
+  pointer-events: none;
+}
+.bonus._hide {
+  transition: all 0.5s ease 0s;
+  opacity: 0;
+  visibility: hidden;
+  top: 6.25rem;
+}
+.bonus__body {
+  background: url("../img/slot/bg-slot-item.png") center/contain no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 70%;
+  transform: translate(-50%, -50%);
+}
+.bonus__label {
+  position: absolute;
+  top: -0.625rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bonus__image {
+  position: relative;
+}
+.bonus__image img {
+  opacity: 1;
+  visibility: visible;
+}
+.bonus__image._active img {
+  transition: opacity 0.5s ease 0s;
+  opacity: 0;
+  visibility: hidden;
+}
+.bonus__image._active .bonus__open-image {
+  opacity: 1;
+  visibility: visible;
+}
+.bonus__image._active .bonus__open-image img {
+  opacity: 1;
+  visibility: visible;
+}
+.bonus__image._active .fortune__bonus {
+  opacity: 1;
+  visibility: visible;
+  animation: move_bonus_up 0.5s ease 0.5s forwards;
+}
+.bonus__open-image {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0.75rem;
+  left: 0;
+  transition: opacity 0.5s ease 0s;
 }
 
 @keyframes jump_icon {

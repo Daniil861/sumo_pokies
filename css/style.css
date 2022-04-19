@@ -738,7 +738,7 @@ body._hold {
   top: 32vh;
   width: 7.3125rem;
   height: 7.4375rem;
-  transition: all 2s ease 0.3s;
+  transition: all 1.2s ease 0s;
 }
 .fortune__bomb {
   position: absolute;

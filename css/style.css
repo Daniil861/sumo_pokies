@@ -619,6 +619,9 @@ body._hold {
   opacity: 0.8;
   transition: opacity 0.5s ease 1s;
 }
+.fortune__field {
+  min-height: 100vh;
+}
 .fortune__field._level-1 .fortune__hubble_1 {
   left: 5vw;
   bottom: 20vh;
@@ -712,6 +715,8 @@ body._hold {
 }
 .fortune__hubble {
   position: absolute;
+  width: 4.5rem;
+  height: 3.1875rem;
 }
 .fortune__hubble._active .fortune__bomb {
   opacity: 1;

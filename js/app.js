@@ -893,10 +893,13 @@
         let current_dragon_position = config.current_number_dot;
         document.querySelector(`.fortune__hubble_${current_dragon_position}`).classList.add("_active");
         if ("bomb" == document.querySelector(`.fortune__hubble_${current_dragon_position}`).dataset.value) {
+            document.querySelector(".fortune__dragon").style.top = `${config.item_top - 149}px`;
             config.current_sum_number = 0;
             config.current_number_dot = 0;
             config.current_position_dot = 1;
-            document.querySelector(".loose").classList.add("_active");
+            setTimeout((() => {
+                document.querySelector(".loose").classList.add("_active");
+            }), 1e3);
         } else if (+document.querySelector(`.fortune__hubble_${current_dragon_position}`).dataset.value > 0) {
             if (1 == +sessionStorage.getItem("current-level") || 2 == +sessionStorage.getItem("current-level")) {
                 add_money(get_count_win(), ".check", 1e3, 2e3);

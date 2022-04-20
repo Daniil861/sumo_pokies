@@ -680,10 +680,10 @@
     }
     function get_coord_block(block) {
         config.item_left = block.getBoundingClientRect().left;
-        config.item_top = block.getBoundingClientRect().top;
+        config.item_top = block.getBoundingClientRect().bottom;
     }
     function move_dragon() {
-        document.querySelector(".fortune__dragon").style.top = `${config.item_top - 120}px`;
+        document.querySelector(".fortune__dragon").style.top = `${config.item_top - 170}px`;
         document.querySelector(".fortune__dragon").style.left = `${config.item_left - 10}px`;
     }
     function check_and_jump_dragon() {
@@ -774,10 +774,10 @@
     function jump_dragon(num_dot) {
         get_coord_block(document.querySelector(`.fortune__hubble_${num_dot}`));
         setTimeout((() => {
-            document.querySelector(".fortune__dragon").style.top = `${config.item_top - 180}px`;
+            document.querySelector(".fortune__dragon").style.top = `${config.item_top - 220}px`;
             document.querySelector(".fortune__dragon").style.left = `${config.item_left - 10}px`;
             setTimeout((() => {
-                document.querySelector(".fortune__dragon").style.top = `${config.item_top - 120}px`;
+                document.querySelector(".fortune__dragon").style.top = `${config.item_top - 170}px`;
                 document.querySelector(".fortune__dragon").style.left = `${config.item_left - 10}px`;
             }), 500);
         }), 500);
@@ -893,7 +893,7 @@
         let current_dragon_position = config.current_number_dot;
         document.querySelector(`.fortune__hubble_${current_dragon_position}`).classList.add("_active");
         if ("bomb" == document.querySelector(`.fortune__hubble_${current_dragon_position}`).dataset.value) {
-            document.querySelector(".fortune__dragon").style.top = `${config.item_top - 149}px`;
+            document.querySelector(".fortune__dragon").style.top = `${config.item_top - 190}px`;
             config.current_sum_number = 0;
             config.current_number_dot = 0;
             config.current_position_dot = 1;
